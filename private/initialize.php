@@ -1,0 +1,35 @@
+<?php 
+    ob_start(); // Output Buffering has been turned ON. For more info about output buffer visit: https://www.php.net/manual/en/function.ob-start.php
+    /*  
+    The following CONSTANTS define the file paths to specific folders in the server (in the hard-drive). 
+    For more info on php constants visit: https://www.w3schools.com/php/php_constants.asp
+    */
+
+    //- Get directory name of this file = initialize.php
+    define("PRIVATE_PATH", dirname(__FILE__));
+    //- Get dirname of PRIVATE_PATH / parent folder or ROOT of our project
+    define("PROJECT_PATH", dirname(PRIVATE_PATH));
+    //- Set the path to the 'Public' directory
+    define("PUBLIC_PATH", PROJECT_PATH . "/public");
+    //- Set the path to the 'Shared' directory
+    define("SHARED_PATH", PRIVATE_PATH . "/_shared");
+
+    /* 
+        WWW_ROOT is a constant that points to any file or folder's url within our project.
+        It is helpful for relative links that are shared in multiple pages.
+        
+        Usage example:
+        <link rel="stylesheet" type="text/css" href="<?php echo url_for('_styles/main.css') ?>" >
+
+        $_SERVER is an array containing information such as headers, paths, and script locations. The entries in this array are created by the web server.
+        For more info on $_SERVER array visit: https://www.php.net/manual/en/reserved.variables.server.php
+    */  
+    $public_end = strpos($_SERVER["SCRIPT_NAME"], "/public") + 7;
+    $doc_root = substr($_SERVER["SCRIPT_NAME"], 0, $public_end);
+    define("WWW_ROOT", $doc_root);
+
+
+    //Our php functions library
+    require_once("functions.php");
+
+?>

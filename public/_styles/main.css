@@ -1,0 +1,159 @@
+/* ==========================================================================
+   Style index: 
+   ========================================================================== */
+/* 
+    1. HTML and body elments
+    2. Global styles
+    3. Main containers
+    4. Nav
+    5. Footer
+
+    0. Media queries
+*/
+
+/* ==========================================================================
+   FONTS
+   ========================================================================== */
+@import url('https://fonts.googleapis.com/css?family=Zilla+Slab:400,700&display=swap');
+
+
+/* ==========================================================================
+   1. HTML and body elments
+   ========================================================================== */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  background-color: #cccccc;
+  color: #000000;
+  font-size: 16px;
+  font-family: 'Zilla Slab', serif;
+  line-height: 1.8em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* User-select color */
+::-moz-selection {
+  background-color: #ffa2d5;
+  text-shadow: none;
+}
+
+::selection {
+  background-color: #ffa2d5;
+  text-shadow: none;
+}
+
+/* ==========================================================================
+   2. Global styles
+   ========================================================================== */
+.page-overlay {
+  position: fixed;
+  top:0;
+  left:0;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  pointer-events: none;
+  z-index: 1000;
+  display: none;
+}
+
+/* ==========================================================================
+   3. Main containers
+   ========================================================================== */
+
+#main-container {
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 1px solid red;
+}
+
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #88bb9e;
+}
+
+.normal-section {
+  position: relative;
+  width: 100%;
+  height: inherit;
+  background-color: #8985bb;
+}
+
+.page-wrapp {
+  width: 80%;
+  max-width: 1366px;
+  margin: 0 auto;
+  background-color: #d6d6d6;
+}
+
+/* ==========================================================================
+   4. Nav
+   ========================================================================== */
+   nav {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 84px;
+    margin: 0;
+    padding: 0;
+    background-color: #ffeea2;
+    z-index: 98;
+  }
+  
+  nav #logo {
+    position: absolute;
+    width: 174px;
+    height: 40px;
+    left: 5em;
+    margin-top: 21px;
+  }
+  
+  nav #logo img {
+    width: 100%;
+  }
+
+/* ==========================================================================
+   5. Footer
+   ========================================================================== */
+footer {
+  width: 100%;
+  padding: 2em;
+  background-color: #ffde00;
+}
+
+/* ==========================================================================
+   7. Table
+   ========================================================================== */
+table {
+  border: 1px solid red;
+}
+
+tr, th, td { 
+  border: 1px solid red;
+  padding: 0.4em;
+}
+
+/* ==========================================================================
+   0. Media queries
+   ========================================================================== */
+
+@media screen and (max-width:1920px){}
+@media screen and (max-width:1536px){}
+@media screen and (max-width:1366px){}
+@media screen and (max-width:360px){}
+
