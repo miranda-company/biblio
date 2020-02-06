@@ -3,11 +3,8 @@
 <?php include(SHARED_PATH . "/header.php"); ?>
 
 <?php 
-  $books = [
-    ["id" => "1", "title" => "La historia interminable", "author_id" => "1", "genre_id" => "1", "description" => "Esto es una breve descripción.", "lent" => "0", "borrower" => "Juan de Dios", "rating" => "5"],
-    ["id" => "2", "title" => "El llano en llamas", "author_id" => "2", "genre_id" => "1", "description" => "Esto es una breve descripción.", "lent" => "0", "borrower" => "Juan de Dios", "rating" => "4"],
-    ["id" => "3", "title" => "The fountain head", "author_id" => "2", "genre_id" => "1", "description" => "Esto es una breve descripción.", "lent" => "1", "borrower" => "Juan de Dios", "rating" => "4"],
-  ];
+  //Perform a query to the database (check query_functions.php)
+  $book_data = find_all_books();
 ?>
 
 <!-- Section: name of this section -->
@@ -29,18 +26,22 @@
       <th>Title</th>
       <th>Author</th>
       <th>Genre</th>
+      <th>Description</th>
       <th>Rating</th>
       <th>Lent?</th>
+      <th>To whom?</th>
     </tr>
 
-    <?php foreach($books as $book) { ?>
+    <?php while($book = mysqli_fetch_assoc($book_data)) { ?>
     <tr>
       <td> <?php echo h($book["id"]); ?> </td>
       <td> <?php echo h($book["title"]); ?> </td>
       <td> <?php echo h($book["author_id"]); ?> </td>
       <td> <?php echo h($book["genre_id"]); ?> </td>
+      <td> <?php echo h($book["description"]); ?> </td>
       <td> <?php echo h($book["rating"]); ?> </td>
-      <td> <?php echo $book["lent"] == 1 ? "yes" : "no"; ?> </td>
+      <td> <?php echo $book["borrowed"] == 1 ? "yes" : "no"; ?> </td>
+      <td> <?php echo h($book["borrower"]); ?> </td>
       <td> <a href="<?php echo url_for( "admin/books/show.php?id=" . h(u($book["id"])) ); ?>"> View </a> </td>
       <td> <a href="<?php echo url_for( "admin/books/edit.php?id=" . h(u($book["id"])) ); ?>"> Edit </a> </td>
       <td> <a href=""> Delete </a> </td>
@@ -48,6 +49,10 @@
     <?php } ?>
   </table>
 
+  <?php
+    // Release returned data
+    mysqli_free_result($book_data);
+  ?>
 </section>
 <!-- Section ends -->
 
