@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Feb 06, 2020 at 06:22 PM
+-- Generation Time: Feb 07, 2020 at 04:52 PM
 -- Server version: 5.7.23
 -- PHP Version: 7.2.10
 
@@ -59,10 +59,13 @@ CREATE TABLE `books` (
 --
 
 INSERT INTO `books` (`id`, `title`, `author_id`, `genre_id`, `description`, `rating`, `borrowed`, `borrower`) VALUES
-(2, 'For Whom the Bell Tolls', 2, 1, 'For Whom the Bell Tolls is a novel by Ernest Hemingway published in 1940. It tells the story of Robert Jordan, a young American volunteer attached to a Republican guerrilla unit during the Spanish Civil War. As a dynamiter, he is assigned to blow up a bridge during an attack on the city of Segovia.', 4, 'true', 'Juan Perez'),
+(2, 'For Whom the Bell Tolls', 2, 1, 'For Whom the Bell Tolls is a novel by Ernest Hemingway published in 1940. It tells the story of Robert Jordan, a young American volunteer attached to a Republican guerrilla unit during the Spanish Civil War. As a dynamiter, he is assigned to blow up a bridge during an attack on the city of Segovia.', 5, 'true', 'Juan Perez'),
 (3, 'The Torrents of Spring', 2, 1, 'The Torrents of Spring is a novella written by Ernest Hemingway, published in 1926. Subtitled \"A Romantic Novel in Honor of the Passing of a Great Race\", Hemingway used the work as a spoof of the world of writers. It is Hemingway\'s first long work and was written as a parody of Sherwood Anderson\'s Dark Laughter.', 3, 'TRUE', 'Miguel Ortiz'),
-(4, 'The Sun Also Rises', 2, 3, 'The Sun Also Rises is a 1926 novel by American Ernest Hemingway that portrays American and British expatriates who travel from Paris to the Festival of San Fermín in Pamplona to watch the running of the bulls and the bullfights.', 5, 'TRUE', 'Juan Perez'),
-(5, 'A Christmas Carol ', 3, 2, 'A Christmas Carol. In Prose. Being a Ghost Story of Christmas, commonly known as A Christmas Carol, is a novella by Charles Dickens, first published in London by Chapman & Hall in 1843 and illustrated by John Leech. A Christmas Carol recounts the story of Ebenezer Scrooge, an elderly miser who is visited by the ghost of his former business partner Jacob Marley and the spirits of Christmas Past, Present and Yet to Come. After their visits, Scrooge is transformed into a kinder, gentler man.', 4, 'TRUE', 'Juan Perez');
+(4, 'El sol also rises', 2, 3, 'The Sun Also Rises is a 1926 novel by American Ernest Hemingway that portrays American and British expatriates who travel from Paris to the Festival of San Fermín in Pamplona to watch the running of the bulls and the bullfights.', 5, 'TRUE', 'Juan Perez'),
+(5, 'A Christmas Carol ', 3, 2, 'A Christmas Carol. In Prose. Being a Ghost Story of Christmas, commonly known as A Christmas Carol, is a novella by Charles Dickens, first published in London by Chapman & Hall in 1843 and illustrated by John Leech. A Christmas Carol recounts the story of Ebenezer Scrooge, an elderly miser who is visited by the ghost of his former business partner Jacob Marley and the spirits of Christmas Past, Present and Yet to Come. After their visits, Scrooge is transformed into a kinder, gentler man.', 4, 'TRUE', 'Juan Perez'),
+(6, 'Sapiens: A Brief History of Humankind', 5, 2, 'The book surveys the history of humankind from the evolution of archaic human species in the Stone Age up to the twenty-first century, focusing on Homo sapiens.', 1, 'no', ''),
+(8, 'Las flores del mal', 7, 2, 'Considerada la obra máxima de su autor, abarca casi la totalidad de su producción poética desde 1840 hasta la fecha de su primera publicación. La primera edición constó de 1.300 ejemplares y se llevó a cabo el 25 de junio de 1857.', 1, 'no', ''),
+(10, 'Hijo de puta', 7, 2, 'Es un hijo de puta', 4, 'yes', 'Rodolfo');
 
 --
 -- Indexes for dumped tables
@@ -96,4 +99,4 @@ ALTER TABLE `authors`
 -- AUTO_INCREMENT for table `books`
 --
 ALTER TABLE `books`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
