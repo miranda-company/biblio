@@ -1,4 +1,20 @@
 <?php
+    /* To connect to the database using php we will use an API called mysqli. For more info visit: https://www.php.net/manual/en/mysqli.overview.php
+        The five steps to connect to a db using php are:
+        1. Create a database connection
+        2. Perform a database query
+        3. Use returned data (if any)
+        4. Release returned data
+        5. Close the database connection
+
+        The msqli function we'll use to connect is the following: 
+        msqli_connect($host, $user, $password, $database);
+
+        The mysqli function we'll use to close the connection is:
+        mysqli_close($connection);
+
+    */
+    
     /*  In this file we'll store all the functions related to the databse. */
     require_once("db_credentials.php");
 
@@ -11,7 +27,7 @@
 
     // DB disconnect
     function db_disconnect($connection){
-        if(issset($connection)){
+        if(isset($connection)){
             mysqli_close($connection);
         }
     }

@@ -34,7 +34,7 @@
     require_once("functions.php");
     
     // Load our database functions library
-    require_once("database.php");
+    require_once("database_functions.php");
 
     // Load our query functions library
     require_once("query_functions.php");
