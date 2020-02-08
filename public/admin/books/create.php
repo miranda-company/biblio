@@ -11,6 +11,7 @@
         $lent = $_POST["lent"];
         $borrower = $_POST["borrower"];
 
+        //! create_new_book function is inside private/query_functions.php
         $new_book = create_new_book($book_title, $author_name, $genre, $description, $rating, $lent, $borrower);
         $new_book_id = mysqli_insert_id($db);
         redirect_to(url_for("admin/books/show.php?id=" . $new_book_id) );

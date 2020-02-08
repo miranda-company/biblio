@@ -1,10 +1,15 @@
-<?php require_once("../../../private/initialize.php"); ?>
-<?php $page_title = "Book" ?>
-<?php include(SHARED_PATH . "/header.php"); ?>
-
 <?php 
+  require_once("../../../private/initialize.php"); 
+
   $id = $_GET['id'] ?? '1';
   $book = find_book_by_id($id);
+  $book_author = find_author_by_id( $book["author_id"] );
+  $author_name = $book_author["name"] . " " . $book_author["surname"];
+?>
+
+<?php
+  $page_title = "My book / ". $book["title"];
+  include(SHARED_PATH . "/header.php");
 ?>
 
 <!-- Section: name of this section -->
@@ -24,7 +29,7 @@
       </dl>
       <dl>
         <dt><h3>Author:</h3></dt>
-        <dd><?php echo h($book["author_id"]) ?></dd>
+        <dd><?php echo h($author_name) ?></dd>
       </dl>
       <dl>
         <dt><h3>Genre:</h3></dt>

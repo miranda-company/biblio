@@ -2,6 +2,8 @@
 
     /* 
         This guide demonstrates the five fundamental aspects of database interaction using PHP and msqli.
+        CRUD = Create, Read, Update, Delete
+        For more info on data manipulation statements in mysql visit: https://dev.mysql.com/doc/refman/8.0/en/sql-data-manipulation-statements.html
     */
 
     // Credentials
@@ -9,9 +11,10 @@
     $db_user = "admin";
     $db_password = "rmochosiete1";
     $db_name = "biblio";
+    $db_port = NULL; // depending on your configuration you might need to add the port for the connection
 
     // 1. Create a database connection
-    $connection = mysqli_connect($db_host, $db_user, $db_password, $db_name);
+    $connection = mysqli_connect($db_host, $db_user, $db_password, $db_name, $db_port);
 
     // Check if connection succeeded with mysqlli_connect_errno (error number) and mysqli_connect_error()
     if( mysqli_connect_errno() ){

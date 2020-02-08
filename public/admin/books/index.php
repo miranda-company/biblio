@@ -1,9 +1,9 @@
-<?php require_once("../../../private/initialize.php"); ?>
-<?php $page_title = "Books" ?>
-<?php include(SHARED_PATH . "/header.php"); ?>
+<?php
+  require_once("../../../private/initialize.php"); 
+  $page_title = "My Books";
+  include(SHARED_PATH . "/header.php");
 
-<?php 
-  //Perform a query to the database (check query_functions.php)
+  //Perform a query to the database and get all books inside table books. Check private/query_functions.php
   $book_data = find_all_books();
 ?>
 
@@ -36,15 +36,18 @@
     <tr>
       <td> <?php echo h($book["id"]); ?> </td>
       <td> <?php echo h($book["title"]); ?> </td>
-      <td> <?php echo h($book["author_id"]); ?> </td>
+      <!-- Get author's name from authors table -->
+      <?php $book_author = find_author_by_id( $book["author_id"] ); ?>
+      <td> <?php echo h($book_author["name"] . " " . $book_author["surname"]); ?> </td>
+      <!---->
       <td> <?php echo h($book["genre_id"]); ?> </td>
       <td> <?php echo h($book["description"]); ?> </td>
       <td> <?php echo h($book["rating"]); ?> </td>
       <td> <?php echo $book["borrowed"] == 1 ? "yes" : "no"; ?> </td>
       <td> <?php echo h($book["borrower"]); ?> </td>
       <td> <a href="<?php echo url_for( "admin/books/show.php?id=" . h(u($book["id"])) ); ?>"> View </a> </td>
-      <td> <a href="<?php echo url_for( "admin/books/edit.php?id=" . h(u($book["id"])) ); ?>"> Edit </a> </td>
-      <td> <a href=""> Delete </a> </td>
+      <td> <a href="<?php echo url_for( "admin/books/edit.php?id=" . h(u($book["id"])) . "&author_id=" . h(u($book["author_id"])) ); ?>"> Edit </a> </td>
+      <td> <a href="<?php echo url_for( "admin/books/delete.php?id=" . h(u($book["id"])) ); ?>"> Delete </a> </td>
     </tr>
     <?php } ?>
   </table>

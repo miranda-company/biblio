@@ -20,7 +20,7 @@
 
     // DB connect
     function db_connect(){
-        $connection = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD, DB_NAME);
+        $connection = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD, DB_NAME, DB_PORT);
         confirm_db_connect();
         return $connection;
     }

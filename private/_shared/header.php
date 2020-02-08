@@ -12,7 +12,7 @@
       <meta charset="utf-8">
       <meta name="language" content="es">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <title><?php echo h($page_title); ?> - la baula</title>
+      <title><?php echo h($page_title); ?> @ Bookeep</title>
       <meta name="description" content="Here a description of your website.">
       <meta name="keywords" content="Keyword 1, Keyword 2">
       <meta name="author" content="La baula www.labaula.net">

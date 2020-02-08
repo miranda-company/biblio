@@ -1,10 +1,8 @@
 <?php 
     require_once("../../../private/initialize.php");
-    
+    $page_title = "Add Book";
+    include(SHARED_PATH . "/header.php");
 ?>
-
-<?php $page_title = "New Book" ?>
-<?php include(SHARED_PATH . "/header.php"); ?>
 
 <!-- Section: name of this section -->
 <section id="page-cover" class="hero-section">
