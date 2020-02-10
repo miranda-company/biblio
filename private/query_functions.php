@@ -78,13 +78,13 @@
         }
 
         $sql = "UPDATE books SET ";
-        $sql .= "title='" . $book[title] . "', ";
-        $sql .= "genre_id='" . $book[genre_id] . "', ";
-        $sql .= "rating='" . $book[rating] . "', ";
-        $sql .= "description='" . $book[description] . "', ";
-        $sql .= "borrowed='" . $book[borrowed] . "', ";
-        $sql .= "borrower='" . $book[borrower] . "' ";
-        $sql .= "WHERE id='" .  $book[id] . "' ";
+        $sql .= "title='" . $book["title"] . "', ";
+        $sql .= "genre_id='" . $book["genre_id"] . "', ";
+        $sql .= "rating='" . $book["rating"] . "', ";
+        $sql .= "description='" . $book["description"] . "', ";
+        $sql .= "borrowed='" . $book["borrowed"] . "', ";
+        $sql .= "borrower='" . $book["borrower"] . "' ";
+        $sql .= "WHERE id='" .  $book["id"] . "' ";
         $sql .= "LIMIT 1";
 
         $result = mysqli_query($db, $sql);
@@ -150,11 +150,11 @@
     function update_author($author){
         global $db;
         $sql = "UPDATE authors SET ";
-        $sql .= "name='" . $author[name] . "', ";
-        $sql .= "surname='" . $author[surname] . "' ";
-        $sql .= "WHERE id='" .  $author[id] . "' ";
+        $sql .= "name='" . $author["name"] . "', ";
+        $sql .= "surname='" . $author["surname"] . "' ";
+        $sql .= "WHERE id='" .  $author["id"] . "' ";
         $sql .= "LIMIT 1";
-
+        
         $result = mysqli_query($db, $sql);
         
         // For UPDATE statements, $result is true / false

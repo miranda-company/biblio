@@ -2,7 +2,7 @@
     //! edit.php is a single page form submision
     require_once("../../../private/initialize.php");
 
-    if( !isset($_GET["id"]) ) {
+    if( !isset($_GET["id"]) || !isset($_GET["author_id"]) ) {
         redirect_to(url_for("admin/books/index.php"));
     }
 
@@ -29,9 +29,9 @@
         //Validate and update changes made to book. Check query functions inside private/query_functions.php
         $book_update_result = update_book($book);
         $author_update_result = update_author($author);
-
+        
         //If validation and updates are succesful redirect, else show errors to user
-        if($book_update_result === true){
+        if($book_update_result === true && $author_update_result === true){
             redirect_to(url_for("admin/books/show.php?id=". $id));
         }else {
             $validation_errors = $book_update_result;
@@ -56,7 +56,7 @@
   <h1>Edit book</h1>
   <a href="<?php echo url_for("admin/books/index.php"); ?>" > &laquo; back to my books </a>
 
-  <form action="<?php echo url_for( "admin/books/edit.php?id=" . h(u($book["id"])) . "&author_id=" . h(u($book["author_id"])) ); ?>" method="post">
+  <form action="<?php echo url_for( "admin/books/edit.php?id=" . h(u($book["id"])) . "&author_id=" . h(u($author["id"])) ); ?>" method="post">
     <dl>
         <dt>Book title</dt>
         <dd> <input type="text" name="book_title" value="<?php echo h($book["title"]); ?>" /> </dd>
