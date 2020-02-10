@@ -24,6 +24,23 @@
         return $book; // returns an assoc. array
     }
 
+    // Validate user's book input
+    function validate_book_input($book){
+        $errors = [];
+
+        //Check book title
+        if( is_blank($book["title"]) ){
+            $errors["error_title"] = "You're missing the title of the book.";
+        }
+
+        //Check book description
+        if( is_blank($book["description"]) ){
+            $errors["error_description"] = "The description can't be left blank.";
+        }
+
+        return $errors;
+    }
+    
     // Create new book
     function create_new_book($book_title, $author_name, $genre, $description, $rating, $lent, $borrower){
         global $db;
@@ -50,9 +67,16 @@
         }
     }
 
-    // Update book
+    // Update book 
     function update_book($book){
         global $db;
+
+        //Validate book input
+        $errors = validate_book_input($book);
+        if( !empty($errors) ){
+            return $errors;
+        }
+
         $sql = "UPDATE books SET ";
         $sql .= "title='" . $book[title] . "', ";
         $sql .= "genre_id='" . $book[genre_id] . "', ";

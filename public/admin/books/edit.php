@@ -26,10 +26,17 @@
         $author["name"] = $_POST["author_name"];
         $author["surname"] = $_POST["author_surname"];
 
-        //Update changes made to book and redirect. Check query functions inside private/query_functions.php
-        $result = update_book($book);
-        $result2 = update_author($author);
-        redirect_to(url_for("admin/books/show.php?id=". $id));
+        //Validate and update changes made to book. Check query functions inside private/query_functions.php
+        $book_update_result = update_book($book);
+        $author_update_result = update_author($author);
+
+        //If validation and updates are succesful redirect, else show errors to user
+        if($book_update_result === true){
+            redirect_to(url_for("admin/books/show.php?id=". $id));
+        }else {
+            $validation_errors = $book_update_result;
+            var_dump($validation_errors);
+        }
 
     } else {
         //If it's still not a POST request, get book data from db

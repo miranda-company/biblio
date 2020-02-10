@@ -39,7 +39,13 @@
     // Load our query functions library
     require_once("query_functions.php");
 
+    // Load our validations functions library
+    require_once("validation_functions.php");
+
     // Connect to the databse
     $db = db_connect();
+
+    // List of errors for all pages
+    $errors = [];
 
 ?>
