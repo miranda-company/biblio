@@ -14,10 +14,9 @@
         $book = [];
         $book["id"] = $id;
         $book["title"] = $_POST["book_title"];
-        $book["genre_id"] = $_POST["genre"];
         $book["rating"] = $_POST["rating"];
         $book["description"] = $_POST["description"];
-        $book["borrowed"] = $_POST["lent"];
+        $book["lent"] = $_POST["lent"];
         $book["borrower"] = $_POST["borrower"];
 
         // Handle POST values for Author
@@ -74,7 +73,7 @@
 
     <dl>
         <dt>Genre</dt>
-        <dd> <input type="text" name="genre" value="<?php echo h($book["genre_id"]); ?>" /> </dd>
+        <dd> <input type="text" name="genre" value="<?php echo h($book["fk_genre_id"]); ?>" /> </dd>
     </dl>
 
     <dl>
@@ -102,12 +101,17 @@
 
     <dl>
         <dt>You lent it?</dt>
-        <dd> <input type="text" name="lent" value="<?php echo h($book["borrowed"]) ?>" /> </dd>
+        <dd> <input type="text" name="lent" value="<?php echo h($book["lent"]) ?>" /> </dd>
     </dl>
 
     <dl>
         <dt>Who borrowed it?</dt>
         <dd> <input type="text" name="borrower" value="<?php echo h($book["borrower"]) ?>" /> </dd>
+    </dl>
+
+    <dl>
+        <dt>Cover image</dt>
+        <dd> <input type="text" name="image_url" value="<?php echo h($book["image_url"]) ?>" /> </dd>
     </dl>
 
     <div id="submit-btn">

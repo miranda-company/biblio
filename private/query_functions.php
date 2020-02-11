@@ -1,6 +1,6 @@
 <?php
 
-    // BOOKS queries:
+     //------- BOOKS TABLE queries: ------------//
 
     // Find all books in db
     function find_all_books(){
@@ -16,7 +16,7 @@
     function find_book_by_id($id){
         global $db;
         $sql = "SELECT * FROM books ";
-        $sql .= "WHERE id='" . $id . "'";
+        $sql .= "WHERE id='" . db_escape($db, $id) . "'";
         $result = mysqli_query($db, $sql);
         confirm_query($result);
         $book = mysqli_fetch_assoc($result);
@@ -42,19 +42,23 @@
     }
     
     // Create new book
-    function create_new_book($book_title, $author_name, $genre, $description, $rating, $lent, $borrower){
+    function create_new_book($book){
         global $db;
         $sql = "INSERT INTO books ";
-        $sql .= "(title, author_id, genre_id, description, rating, borrowed, borrower) ";
+        $sql .= "(title, fk_author_id, fk_genre_id, fk_language_id, fk_shelve_id, description, rating, lent, borrower, image_url) ";
         $sql .= "VALUES (";
-        $sql .= "'" . $book_title . "',";
-        $sql .= "'" . $author_name . "',";
-        $sql .= "'" . $genre . "',";
-        $sql .= "'" . $description . "',";
-        $sql .= "'" . $rating . "',";
-        $sql .= "'" . $lent . "',";
-        $sql .= "'" . $borrower . "'";
+        $sql .= "'" . db_escape($db, $book["title"]) . "',";
+        $sql .= "'" . db_escape($db, $book["fk_author_id"]) . "',";
+        $sql .= "'" . db_escape($db, $book["fk_genre_id"]) . "',";
+        $sql .= "'" . db_escape($db, $book["fk_language_id"]) . "',";
+        $sql .= "'" . db_escape($db, $book["fk_shelve_id"]) . "',";
+        $sql .= "'" . db_escape($db, $book["description"]) . "',";
+        $sql .= "'" . db_escape($db, $book["rating"]) . "',";
+        $sql .= "'" . db_escape($db, $book["lent"]) . "',";
+        $sql .= "'" . db_escape($db, $book["borrower"]) . "',";
+        $sql .= "'" . db_escape($db, $book["image_url"]) . "'";
         $sql .= ")";
+        echo $sql;
         $result = mysqli_query($db, $sql);
         
         // For INSERT statements, $result is true / false
@@ -78,13 +82,12 @@
         }
 
         $sql = "UPDATE books SET ";
-        $sql .= "title='" . $book["title"] . "', ";
-        $sql .= "genre_id='" . $book["genre_id"] . "', ";
-        $sql .= "rating='" . $book["rating"] . "', ";
-        $sql .= "description='" . $book["description"] . "', ";
-        $sql .= "borrowed='" . $book["borrowed"] . "', ";
-        $sql .= "borrower='" . $book["borrower"] . "' ";
-        $sql .= "WHERE id='" .  $book["id"] . "' ";
+        $sql .= "title='" . db_escape($db, $book["title"]) . "', ";
+        $sql .= "rating='" . db_escape($db, $book["rating"]) . "', ";
+        $sql .= "description='" . db_escape($db, $book["description"]) . "', ";
+        $sql .= "lent='" . db_escape($db, $book["lent"]) . "', ";
+        $sql .= "borrower='" . db_escape($db, $book["borrower"]) . "' ";
+        $sql .= "WHERE id='" . db_escape($db, $book["id"]) . "' ";
         $sql .= "LIMIT 1";
 
         $result = mysqli_query($db, $sql);
@@ -120,7 +123,7 @@
         } 
     }
 
-    // AUTHORS queries:
+    //------- AUTHORS TABLE queries: ------------//
 
     // Find all authors in db
     function find_all_authors(){
@@ -136,7 +139,7 @@
     function find_author_by_id($id){
         global $db;
         $sql = "SELECT * FROM authors ";
-        $sql .= "WHERE id='" . $id . "'";
+        $sql .= "WHERE id='" . db_escape($db, $id) . "'";
         $result = mysqli_query($db, $sql);
         confirm_query($result);
         $author = mysqli_fetch_assoc($result);
@@ -145,14 +148,34 @@
     }
 
     // Create new author
+    function create_new_author($author){
+        global $db;
+        $sql = "INSERT INTO authors ";
+        $sql .= "(name, surname, bio) ";
+        $sql .= "VALUES (";
+        $sql .= "'" . db_escape($db, $author["name"]) . "',";
+        $sql .= "'" . db_escape($db, $author["surname"]) . "',";
+        $sql .= "'" . db_escape($db, $author["bio"]) . "'";
+        $sql .= ")";
+        $result = mysqli_query($db, $sql);
+        
+        // For INSERT statements, $result is true / false
+        if($result){
+            return true;
+        }else{
+            echo mysqli_error($db);
+            db_disconnect($db);
+            exit;
+        }
+    }
 
     // Update author
     function update_author($author){
         global $db;
         $sql = "UPDATE authors SET ";
-        $sql .= "name='" . $author["name"] . "', ";
-        $sql .= "surname='" . $author["surname"] . "' ";
-        $sql .= "WHERE id='" .  $author["id"] . "' ";
+        $sql .= "name='" . db_escape($db, $author["name"]) . "', ";
+        $sql .= "surname='" . db_escape($db, $author["surname"]) . "' ";
+        $sql .= "WHERE id='" . db_escape($db, $author["id"]) . "' ";
         $sql .= "LIMIT 1";
         
         $result = mysqli_query($db, $sql);
@@ -167,5 +190,79 @@
             exit;
         }
     }
+
+
+    //------- GENRES TABLE queries: ------------//
     
+    // Find all genres in db
+    function find_all_genres(){
+        global $db;
+        $sql = "SELECT * FROM genres ";
+        $sql .= "ORDER BY name ASC";
+        $result = mysqli_query($db, $sql);
+        confirm_query($result);
+        return $result;
+    }
+
+    // Find a genre from genres table
+    function find_genre_by_id($id){
+        global $db;
+        $sql = "SELECT * FROM genres ";
+        $sql .= "WHERE id='" . $id . "'";
+        $result = mysqli_query($db, $sql);
+        confirm_query($result);
+        $genre = mysqli_fetch_assoc($result);
+        mysqli_free_result($result);
+        return $genre; // returns an assoc. array
+    }
+
+
+    //------- LANGUAGES TABLE queries: ------------//
+
+    // Find all languages in db
+    function find_all_languages(){
+        global $db;
+        $sql = "SELECT * FROM languages ";
+        $sql .= "ORDER BY name ASC";
+        $result = mysqli_query($db, $sql);
+        confirm_query($result);
+        return $result;
+    }
+
+    // Find a language from languages table
+    function find_language_by_id($id){
+        global $db;
+        $sql = "SELECT * FROM languages ";
+        $sql .= "WHERE id='" . $id . "'";
+        $result = mysqli_query($db, $sql);
+        confirm_query($result);
+        $language = mysqli_fetch_assoc($result);
+        mysqli_free_result($result);
+        return $language; // returns an assoc. array
+    }
+
+    //------- SHELVES TABLE queries: ------------//
+
+    // Find all shelves in db
+    function find_all_shelves(){
+        global $db;
+        $sql = "SELECT * FROM shelves ";
+        $sql .= "ORDER BY name ASC";
+        $result = mysqli_query($db, $sql);
+        confirm_query($result);
+        return $result;
+    }
+
+    // Find a language from languages table
+    function find_shelve_by_id($id){
+        global $db;
+        $sql = "SELECT * FROM shelves ";
+        $sql .= "WHERE id='" . $id . "'";
+        $result = mysqli_query($db, $sql);
+        confirm_query($result);
+        $shelve = mysqli_fetch_assoc($result);
+        mysqli_free_result($result);
+        return $shelve; // returns an assoc. array
+    }
+
 ?>

@@ -25,7 +25,7 @@
     }
 
     /*
-        Encode for html, convert special characters to HTML entities. You should use this encode for every data that comes dynamically from a database and you are want to render it into the website. 
+        Encode for html, convert special characters to HTML entities. You should use this encode for every data that comes dynamically from a database and you want to render it into the website. 
         For more info on htmlspecialchars visit: https://www.php.net/manual/en/function.htmlspecialchars.php 
     */
     function h($string=""){

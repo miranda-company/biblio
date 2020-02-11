@@ -32,6 +32,11 @@
         }
     }
 
+     // Sanitize data for SQL - escape dynamic sql values
+     function db_escape($connection, $string){
+        return mysqli_real_escape_string($connection, $string);
+    }
+
     // Confirm DB connection
     function confirm_db_connect(){
         if( mysqli_connect_errno() ){
