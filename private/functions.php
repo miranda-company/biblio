@@ -25,7 +25,7 @@
     }
 
     /*
-        Encode for html, convert special characters to HTML entities. You should use this encode for every data that comes dynamically from a database and you are want to render it into the website. 
+        Encode for html, convert special characters to HTML entities. You should use this encode for every data that comes dynamically from a database and you want to render it into the website. 
         For more info on htmlspecialchars visit: https://www.php.net/manual/en/function.htmlspecialchars.php 
     */
     function h($string=""){
@@ -61,4 +61,39 @@
     function is_get_request(){
         return $_SERVER["REQUEST_METHOD"] == "GET";
     };
+
+    // Display errors. 
+    function display_errors($errors=array()){
+        $output = "";
+        if(!empty($errors)){
+            $output .= "<div class=\"errors\">";
+            $output .= "Please fix the following errors:"; 
+            $output .= "<ul>"; 
+            foreach($errors as $error){
+                $output .= "<li>" . h($error) . "</li>";   
+            }
+            $output .= "</ul>"; 
+            $output .= "</div>";
+        }
+        return $output;
+    }
+
+    // Clear status message.
+    function clear_status_message(){
+        if(isset($_SESSION["status_message"]) && $_SESSION["status_message"] != ""){
+            $msg = $_SESSION["status_message"];
+            unset($_SESSION["status_message"]);
+            return $msg;
+        }
+    }
+
+    // Display status message.
+    function display_status_message(){
+        $msg = clear_status_message();
+        if(!is_blank($msg)){
+            return "<div class='status-message'>" . h($msg) . "</div>";
+        }
+    }
+
+
 ?>

@@ -12,7 +12,7 @@
       <meta charset="utf-8">
       <meta name="language" content="es">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <title><?php echo h($page_title); ?> - la baula</title>
+      <title><?php echo h($page_title); ?> @ Bookeep</title>
       <meta name="description" content="Here a description of your website.">
       <meta name="keywords" content="Keyword 1, Keyword 2">
       <meta name="author" content="La baula www.labaula.net">
@@ -37,11 +37,17 @@
     <!--  Nav -->
     <nav id="main-menu">
       <ul>
+        <li>User: <?php echo $_SESSION["username"] ?? ""; ?> </li> 
         <li> <a href="<?php echo url_for("index.php")?>">Home</a> </li>
-        <li><a href="<?php echo url_for("admin/index.php")?>">Admin login</a></li>
+        <li><a href="<?php echo url_for("admin/login.php")?>">Login</a></li>
+        <li><a href="<?php echo url_for("admin/logout.php")?>">Logout</a></li>
       </ul>
     </nav>
     <!-- Nav ends -->
+      
+    <!-- Status message   -->
+    <?php echo display_status_message(); ?>
+    <!-- Status message ends   -->
 
     <!-- Main container -->
     <div id="main-container">

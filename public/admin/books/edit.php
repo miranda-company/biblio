@@ -1,43 +1,56 @@
 <?php 
+    //! edit.php is a single page form submision
     require_once("../../../private/initialize.php");
-    
-    if( !isset($_GET["id"]) ) {
+
+    if( !isset($_GET["id"]) || !isset($_GET["author_id"]) ) {
         redirect_to(url_for("admin/books/index.php"));
     }
+
     $id = $_GET["id"];
-    $book_title = "";
-    $author_name = "";
-    $genre = "";
-    $rating = "";
-    $description = "";
-    $lent = "";
-    $borrower = "";
-
+    $author_id = $_GET["author_id"];
+    
     if(is_post_request()) {
-        //Handle form values sent by new.php
-        $book_title = $_POST["book_title"];
-        $author_name = $_POST["author_name"];
-        $genre = $_POST["genre"];
-        $rating = $_POST["rating"];
-        $description = $_POST["description"];
-        $lent = $_POST["lent"];
-        $borrower = $_POST["borrower"];
+        // Handle POST values for Book
+        $book = [];
+        $book["id"] = $id;
+        $book["title"] = $_POST["book_title"];
+        $book["rating"] = $_POST["rating"];
+        $book["description"] = $_POST["description"];
+        $book["lent"] = $_POST["lent"];
+        $book["borrower"] = $_POST["borrower"];
 
-        //Display form parameters into our html
-        echo "Form parameters<br/>";
-        echo "Book title: " . $book_title . "<br/>";
-        echo "Author: " . $author_name . "<br/>";
-        echo "Genre: " . $genre . "<br/>";
-        echo "Rating: " . $rating . "<br/>";
-        echo "Description: " . $description . "<br/>";
-        echo "lent: " . $lent . "<br/>";
-        echo "borrower: " . $borrower . "<br/>";
-    } 
+        // Handle POST values for Author
+        $author = [];
+        $author["id"] = $author_id;
+        $author["name"] = $_POST["author_name"];
+        $author["surname"] = $_POST["author_surname"];
 
+        //Validate changes made to book. Check query functions inside private/query_functions.php
+        $book_update_result = update_book($book);
+        $author_update_result = update_author($author);
+        
+        //If validation is succesful redirect, else show errors to user
+        if($book_update_result === true && $author_update_result === true){
+            // Send status message, store it in the $_SESSION superglobal in order to display it on the redirect page.
+            $_SESSION["status_message"] = "Book info has been updated successfully.";
+            redirect_to(url_for("admin/books/show.php?id=". $id));
+            
+        }else {
+            $errors = $book_update_result;
+            //var_dump($errors); //< Use var_dump for a better debugging. Comment when finished.
+        }
+
+    } else {
+        //If it's still not a POST request, get book data from db
+        $book = find_book_by_id($id);
+        $author = find_author_by_id($author_id);
+    }
 ?>
 
-<?php $page_title = "New Book" ?>
-<?php include(SHARED_PATH . "/header.php"); ?>
+<?php 
+    $page_title = "Edit / ". $book["title"];
+    include(SHARED_PATH . "/header.php");
+?>
 
 <!-- Section: name of this section -->
 <section id="page-cover" class="hero-section">
@@ -45,48 +58,67 @@
   <h1>Edit book</h1>
   <a href="<?php echo url_for("admin/books/index.php"); ?>" > &laquo; back to my books </a>
 
-  <form action="<?php echo url_for("admin/books/edit.php?id=" . h( u($id) ) ); ?>" method="post">
+  <!-- Display errors   -->
+  <?php echo display_errors($errors); ?>
+  <!-- Display errors ends   -->
+    
+  <form action="<?php echo url_for( "admin/books/edit.php?id=" . h(u($book["id"])) . "&author_id=" . h(u($author["id"])) ); ?>" method="post">
     <dl>
         <dt>Book title</dt>
-        <dd> <input type="text" name="book_title" value="<?php echo $book_title; ?>" /> </dd>
+        <dd> <input type="text" name="book_title" value="<?php echo h($book["title"]); ?>" /> </dd>
     </dl>
 
     <dl>
-        <dt>Author</dt>
-        <dd> <input type="text" name="author_name" value="<?php echo $author_name; ?>" /> </dd>
+        <dt>Author's name</dt>
+        <dd> <input type="text" name="author_name" value="<?php echo h($author["name"]); ?>" /> </dd>
+    </dl>
+
+    <dl>
+        <dt>Author's surname</dt>
+        <dd> <input type="text" name="author_surname" value="<?php echo h($author["surname"]); ?>" /> </dd>
     </dl>
 
     <dl>
         <dt>Genre</dt>
-        <dd> <input type="text" name="genre" value="<?php echo $genre; ?>" /> </dd>
+        <dd> <input type="text" name="genre" value="<?php echo h($book["fk_genre_id"]); ?>" /> </dd>
     </dl>
 
     <dl>
         <dt>Rating</dt>
         <dd> 
             <select name="rating">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
+                <?php 
+                    // We loop through the options to see which one came from the db
+                    for($i=1; $i <= 5; $i++){
+                        echo "<option value=\"{$i}\"";
+                        if($book["rating"] == $i){
+                            echo " selected";
+                        }
+                        echo ">{$i}</option>";
+                    }
+                ?>
             </select>
         </dd>
     </dl>
 
     <dl>
         <dt>Description</dt>
-        <dd> <input type="text" name="description" value="<?php echo $description; ?>" /> </dd>
+        <dd> <input type="text" name="description" value="<?php echo h($book["description"]) ?>" /> </dd>
     </dl>
 
     <dl>
         <dt>You lent it?</dt>
-        <dd> <input type="text" name="lent" value="" /> </dd>
+        <dd> <input type="text" name="lent" value="<?php echo h($book["lent"]) ?>" /> </dd>
     </dl>
 
     <dl>
         <dt>Who borrowed it?</dt>
-        <dd> <input type="text" name="borrower" value="" /> </dd>
+        <dd> <input type="text" name="borrower" value="<?php echo h($book["borrower"]) ?>" /> </dd>
+    </dl>
+
+    <dl>
+        <dt>Cover image</dt>
+        <dd> <input type="text" name="image_url" value="<?php echo h($book["image_url"]) ?>" /> </dd>
     </dl>
 
     <div id="submit-btn">

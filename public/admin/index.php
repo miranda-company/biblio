@@ -1,14 +1,20 @@
-<?php require_once("../../private/initialize.php"); ?>
-<?php $page_title = "Admin panel" ?>
-<?php $language = "es" ?>
-<?php include(SHARED_PATH . "/header.php"); ?>
+<?php 
+    require_once("../../private/initialize.php"); 
+    $page_title = $_SESSION["username"] . "'s " . "library";
+    $language = "es";
+    include(SHARED_PATH . "/header.php");
+?>
 
 <!-- Section: name of this section -->
 <section id="page-cover" class="hero-section">
   <!-- Here your content -->
-  <h1>Admin Panel</h1>
-  <a href="<?php echo url_for("admin/books/index.php"); ?>" > My books </a>
-  <div class="page-wrapp">This is a page wrapp</div>
+  <h1>My library</h1>
+  <ul>
+      <li> <a href="<?php echo url_for("admin/books/index.php"); ?>" > Books </a> </li>
+      <li> <a href="<?php echo url_for("admin/books/index.php"); ?>" > Authors </a> </li>
+      <li> <a href="<?php echo url_for("admin/books/index.php"); ?>" > Shelves </a> </li>
+      <li> <a href="<?php echo url_for("admin/books/index.php"); ?>" > Genres </a> </li>
+  </ul>
   
 </section>
 <!-- Section ends -->
