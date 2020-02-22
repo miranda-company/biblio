@@ -37,11 +37,17 @@
     <!--  Nav -->
     <nav id="main-menu">
       <ul>
+        <li>User: <?php echo $_SESSION["username"] ?? ""; ?> </li> 
         <li> <a href="<?php echo url_for("index.php")?>">Home</a> </li>
-        <li><a href="<?php echo url_for("admin/index.php")?>">Admin login</a></li>
+        <li><a href="<?php echo url_for("admin/login.php")?>">Login</a></li>
+        <li><a href="<?php echo url_for("admin/logout.php")?>">Logout</a></li>
       </ul>
     </nav>
     <!-- Nav ends -->
+      
+    <!-- Status message   -->
+    <?php echo display_status_message(); ?>
+    <!-- Status message ends   -->
 
     <!-- Main container -->
     <div id="main-container">

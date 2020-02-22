@@ -7,11 +7,23 @@
     }
 
     $id = $_GET["id"];
+<<<<<<< HEAD
 
     if(is_post_request()) {
         // Delete book after confirmation / POST request
         delete_book($id);
         redirect_to(url_for("admin/books/index.php"));
+=======
+    
+    // Delete book after confirmation / POST request
+    if(is_post_request()) {
+        delete_book($id);
+        // Send status message, store it in the $_SESSION superglobal in order to display it on the redirect page.
+        $_SESSION["status_message"] = "Book removed successfully.";
+        
+        redirect_to(url_for("admin/books/index.php"));
+        
+>>>>>>> 797343f3dbf27e749318809d9cc70b12f56bef08
     } else {
         //Find the data of the book we want to delete
         $book = find_book_by_id($id);

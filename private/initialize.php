@@ -1,5 +1,10 @@
 <?php 
     ob_start(); // Output Buffering has been turned ON. For more info about output buffer visit: https://www.php.net/manual/en/function.ob-start.php
+<<<<<<< HEAD
+=======
+
+    session_start(); // Start user's session and starts $_SESSION super global. For more info on session_start() visit: https://www.php.net/manual/en/function.session-start.php
+>>>>>>> 797343f3dbf27e749318809d9cc70b12f56bef08
     
     /*  
     The following CONSTANTS define the file paths to specific folders in the server (in the hard-drive). 

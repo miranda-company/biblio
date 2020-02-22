@@ -14,10 +14,16 @@
         $book = [];
         $book["id"] = $id;
         $book["title"] = $_POST["book_title"];
+<<<<<<< HEAD
         $book["genre_id"] = $_POST["genre"];
         $book["rating"] = $_POST["rating"];
         $book["description"] = $_POST["description"];
         $book["borrowed"] = $_POST["lent"];
+=======
+        $book["rating"] = $_POST["rating"];
+        $book["description"] = $_POST["description"];
+        $book["lent"] = $_POST["lent"];
+>>>>>>> 797343f3dbf27e749318809d9cc70b12f56bef08
         $book["borrower"] = $_POST["borrower"];
 
         // Handle POST values for Author
@@ -26,6 +32,7 @@
         $author["name"] = $_POST["author_name"];
         $author["surname"] = $_POST["author_surname"];
 
+<<<<<<< HEAD
         //Validate and update changes made to book. Check query functions inside private/query_functions.php
         $book_update_result = update_book($book);
         $author_update_result = update_author($author);
@@ -36,6 +43,21 @@
         }else {
             $validation_errors = $book_update_result;
             var_dump($validation_errors);
+=======
+        //Validate changes made to book. Check query functions inside private/query_functions.php
+        $book_update_result = update_book($book);
+        $author_update_result = update_author($author);
+        
+        //If validation is succesful redirect, else show errors to user
+        if($book_update_result === true && $author_update_result === true){
+            // Send status message, store it in the $_SESSION superglobal in order to display it on the redirect page.
+            $_SESSION["status_message"] = "Book info has been updated successfully.";
+            redirect_to(url_for("admin/books/show.php?id=". $id));
+            
+        }else {
+            $errors = $book_update_result;
+            //var_dump($errors); //< Use var_dump for a better debugging. Comment when finished.
+>>>>>>> 797343f3dbf27e749318809d9cc70b12f56bef08
         }
 
     } else {
@@ -56,6 +78,13 @@
   <h1>Edit book</h1>
   <a href="<?php echo url_for("admin/books/index.php"); ?>" > &laquo; back to my books </a>
 
+<<<<<<< HEAD
+=======
+  <!-- Display errors   -->
+  <?php echo display_errors($errors); ?>
+  <!-- Display errors ends   -->
+    
+>>>>>>> 797343f3dbf27e749318809d9cc70b12f56bef08
   <form action="<?php echo url_for( "admin/books/edit.php?id=" . h(u($book["id"])) . "&author_id=" . h(u($author["id"])) ); ?>" method="post">
     <dl>
         <dt>Book title</dt>
@@ -74,7 +103,11 @@
 
     <dl>
         <dt>Genre</dt>
+<<<<<<< HEAD
         <dd> <input type="text" name="genre" value="<?php echo h($book["genre_id"]); ?>" /> </dd>
+=======
+        <dd> <input type="text" name="genre" value="<?php echo h($book["fk_genre_id"]); ?>" /> </dd>
+>>>>>>> 797343f3dbf27e749318809d9cc70b12f56bef08
     </dl>
 
     <dl>
@@ -102,12 +135,24 @@
 
     <dl>
         <dt>You lent it?</dt>
+<<<<<<< HEAD
         <dd> <input type="text" name="lent" value="<?php echo h($book["borrowed"]) ?>" /> </dd>
+=======
+        <dd> <input type="text" name="lent" value="<?php echo h($book["lent"]) ?>" /> </dd>
+>>>>>>> 797343f3dbf27e749318809d9cc70b12f56bef08
     </dl>
 
     <dl>
         <dt>Who borrowed it?</dt>
         <dd> <input type="text" name="borrower" value="<?php echo h($book["borrower"]) ?>" /> </dd>
+<<<<<<< HEAD
+=======
+    </dl>
+
+    <dl>
+        <dt>Cover image</dt>
+        <dd> <input type="text" name="image_url" value="<?php echo h($book["image_url"]) ?>" /> </dd>
+>>>>>>> 797343f3dbf27e749318809d9cc70b12f56bef08
     </dl>
 
     <div id="submit-btn">

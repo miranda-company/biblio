@@ -1,6 +1,14 @@
 <?php
 
+<<<<<<< HEAD
     /* This file contains all our functions for validating data */
+=======
+    /* 
+        This file contains all our functions for validating data.
+        We want to validate the data (coming from user's input) before we create or update records in the database. 
+        That's the right place to enforce these rules. So the form data comes in from the user, we run our validations, and then we either create or update the records. 
+    */
+>>>>>>> 797343f3dbf27e749318809d9cc70b12f56bef08
 
     /*
         Check if value is blank
