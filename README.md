@@ -1,5 +1,5 @@
 # biblio
-Personal library organizer.
+My personal library organizer app.
 
 - Created 31st of january 2020 - 
 
